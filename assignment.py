@@ -91,28 +91,33 @@ print(result)
 # Write a function that counts the number of repeated characters in a string.
 
 
-def count_repeated_characters(s):
-    # Dictionary to store the frequency of each character
-    freq = {}
-    
-    # Count the frequency of each character in the string
-    for char in s:
-        if char in freq:
-            freq[char] += 1
-        else:
-            freq[char] = 1
-    
-    # Count the number of characters that appear more than once
-    repeated_count = sum(1 for count in freq.values() if count > 1)
-    
-    return repeated_count
+def count_repeats(s):
+    """
+    Finds the character with the highest number of repetitions in the input string
+    and returns the count of its repetitions, or 0 if no character is repeated.
 
-# Example usage:
-s = "hello"
-result = count_repeated_characters(s)
-print(result)  
-s = "aeiou"
-print(result)  
+    Args:
+        s (str): The input string.
+
+    Returns:
+        int: The highest number of repetitions for any character, or 0 if no repeats.
+    """
+    from collections import Counter
+
+    # Count the occurrences of each character
+    char_count = Counter(s)
+
+    # Find the maximum count of any character that is repeated
+    max_repeats = max((count for count in char_count.values() if count > 1), default=0)
+
+    return max_repeats
+
+# Examples
+print(count_repeats("hello"))  # Output: 2
+print(count_repeats("aeiou"))  # Output: 0
+
+
+
 
 """Returns the number of repeated characters in a string.
     >>> count_repeats("hello")
@@ -127,3 +132,4 @@ if __name__ == "__main__":
     import doctest
 
     doctest.testmod(verbose=True)
+
